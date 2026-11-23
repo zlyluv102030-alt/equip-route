@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>装备合成路线 · 映照诸天3</title>
+<title>玩法攻略与装备路线 · 映照诸天3-天灾降临</title>
 <style>
 :root{color-scheme:dark;--bg:#111615;--pane:#191f1d;--pane-2:#212925;--line:#344139;--text:#f2f3e9;--muted:#adbaae;--gold:#ecd492;--green:#b2debb;--green-2:#2b4435;--focus:#f4d07c}
 *{box-sizing:border-box}
@@ -90,18 +90,327 @@ h3{font-size:17px;color:var(--gold);margin-bottom:9px}
  body,header,.selected,.card,.route,.stat,.grade{background:#fff;color:#1a1a1a}
  .stat b,.description{color:#1a1a1a}.sidebar{display:none}.shell{display:block}.card{margin-bottom:10px}
 }
+
+.view-nav{width:min(1440px,calc(100% - 64px));margin:18px auto 0;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.view-nav button{padding:9px 18px;font-size:15px;font-weight:650;border-radius:9px;transition:border-color .15s,background .15s}
+.view-nav button[aria-selected="true"]{background:var(--green-2);color:#e4fae7;border-color:#588465}
+.view-nav .nav-tip{margin-left:auto;color:var(--muted);font-size:13px}
+.hidden{display:none!important}
+.toc{padding:12px 10px;display:grid;gap:4px}
+.toc-title{padding:6px 10px 8px;color:var(--gold);font-size:13px;font-weight:650;letter-spacing:.05em;border-bottom:1px solid var(--line);margin-bottom:4px}
+.toc a{display:block;padding:8px 10px;border-radius:7px;color:var(--text);text-decoration:none;font-size:14px;border:1px solid transparent}
+.toc a:hover{background:var(--pane-2);border-color:var(--line);color:#e9f8e9}
+.toc-cta{margin:10px 10px 12px;width:calc(100% - 20px);padding:9px 12px;background:var(--green-2);border-color:#4a6e55;color:#dff7e3;font-weight:600}
+.toc-cta:hover{border-color:#74a883}
+.guide-hero{background:linear-gradient(115deg,#223128 0%,#191f1d 72%);border-color:#435749}
+.guide-hero p{margin-top:8px;color:#dfe4d8}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{font-size:12px;color:#dcf0df;background:#24362c;border:1px solid #405a48;padding:3px 10px;border-radius:20px}
+.g-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
+.g-box{background:#161d19;border:1px solid var(--line);border-radius:9px;padding:13px 15px}
+.g-box h4{font-size:14px;color:var(--gold);margin-bottom:6px}
+.g-box p,.g-box li{font-size:13.5px;color:#dfe3d8}
+.g-list{margin:8px 0 0;padding-left:18px;display:grid;gap:6px;color:#e3e6dc;font-size:14px}
+.g-list li b{color:var(--gold)}
+.g-table-wrap{overflow-x:auto;margin-top:10px;border:1px solid var(--line);border-radius:8px}
+.g-table{width:100%;border-collapse:collapse;font-size:13.5px;background:#161d19}
+.g-table th,.g-table td{padding:9px 11px;text-align:left;border-bottom:1px solid #28332c;vertical-align:top}
+.g-table th{color:var(--gold);background:#1d2621;font-weight:650;white-space:nowrap}
+.g-table tr:last-child td{border-bottom:0}
+kbd{display:inline-block;padding:1px 7px;font:600 12px/1.5 Consolas,monospace;color:#f6e2a8;background:#272d29;border:1px solid #536156;border-radius:5px;vertical-align:baseline}
+.itemchip{display:inline-block;padding:2px 8px;margin:2px 3px 2px 0;border-radius:6px;background:#223329;border:1px solid #405a48;text-decoration:none;font-size:13px;line-height:1.45}
+.itemchip:hover{background:#2c4637;border-color:#74a883;color:#effdf1}
+.callout{margin-top:12px;padding:11px 14px;border-radius:8px;background:#1d251f;border-left:3px solid var(--gold);font-size:13.5px;color:#e6e8dc}
+.stage-card{background:#161d19;border:1px solid var(--line);border-radius:9px;padding:13px 15px;margin-top:10px}
+.stage-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.stage-head h4{font-size:15px;color:var(--gold)}
+.stage-tag{font-size:12px;color:#d7f5db;background:var(--green-2);border:1px solid #4a6e55;padding:2px 9px;border-radius:16px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.hero-tag{padding:3px 9px;border-radius:6px;background:#1d2621;border:1px solid #38493f;font-size:13px;color:#e7ebe1}
+@media(max-width:850px){
+ .view-nav{width:calc(100% - 30px);margin-top:14px}
+ .view-nav .nav-tip{margin-left:0;width:100%}
+}
+@media print{
+ .view-nav,.toc-cta{display:none}
+ .g-box,.g-table,.stage-card,.callout,.itemchip,.hero-tag{background:#fff;color:#1a1a1a;border-color:#bbb}
+}
 </style>
 </head>
 <body>
 <header>
-  <div><p class="mapname">映照诸天3-天灾降临</p><h1>装备合成路线</h1><p class="sub">按装备名、材料名或物品 ID 查找。展开材料可继续查看下一层配方。</p></div>
+  <div><p class="mapname">映照诸天3-天灾降临</p><h1 id="page-heading">玩法攻略与装备路线</h1><p class="sub" id="page-sub">查看核心功能、四阶段流程与出装推荐，点击任意装备直达完整合成树。</p></div>
   <div class="summary" aria-label="收录数量">
+    <span><b>30</b>位可选英雄</span>
     <span><b id="recipe-count"></b>条合成配方</span>
     <span><b id="product-count"></b>件合成成品</span>
     <span><b id="special-count"></b>条升阶及转换</span>
   </div>
 </header>
-<div class="shell">
+<nav class="view-nav" aria-label="主视图切换">
+  <button type="button" data-view="guide" aria-selected="true">玩法与功能攻略</button>
+  <button type="button" data-view="equip" aria-selected="false">装备合成路线</button>
+  <span class="nav-tip">提示：攻略中的绿色装备名均可直接点击查看合成配方与掉落</span>
+</nav>
+
+<div id="view-guide" class="shell">
+  <aside class="sidebar" aria-label="攻略目录">
+    <nav class="toc">
+      <div class="toc-title">玩法攻略目录</div>
+      <a href="#sec-start">1. 开局设置与 8 档难度</a>
+      <a href="#sec-controls">2. 核心操作与宝宝功能</a>
+      <a href="#sec-heroes">3. 30 位英雄与成长机制</a>
+      <a href="#sec-points">4. 通关积分与局内兑换</a>
+      <a href="#sec-equip">5. 装备养成与推荐路线</a>
+      <a href="#sec-stages">6. 四阶段通关流程</a>
+      <a href="#sec-commands">7. 常用聊天指令速查</a>
+    </nav>
+    <button type="button" class="toc-cta" data-switch-view="equip">浏览全部 244 件装备合成树 →</button>
+  </aside>
+  <main aria-label="玩法攻略正文">
+    <section class="card guide-hero">
+      <div class="title-row"><h2>《映照诸天3-天灾降临》玩法与功能攻略</h2><span class="grade">KK 官方版</span></div>
+      <p>防守推进 + 多人协作 RPG 地图：开局全图视野，从 30 位主塔成长英雄中择一开荒，历经「守城抗 Boss → 攻破黑色城堡 &amp; 五龙副本 → 限时六连 Boss → 终局阿尔萨斯 / 基尔加丹」四阶段，搭配装备搜寻、材料复制与永久通关积分兑换，爽快刷装与高难攻坚兼顾。</p>
+      <div class="pill-row">
+        <span class="pill">30 位酒馆主塔英雄</span>
+        <span class="pill">8 档难度 + 急速宝箱模式</span>
+        <span class="pill">Tab 实时属性面板 / D 键冲刺</span>
+        <span class="pill">全材料可复制 / 5 次送信送自然之力</span>
+        <span class="pill">KK 永久通关积分存档</span>
+      </div>
+    </section>
+
+    <section class="card" id="sec-start">
+      <h3>1. 开局设置、模式与胜负规则</h3>
+      <div class="g-table-wrap">
+        <table class="g-table">
+          <thead>
+            <tr><th>难度档位</th><th>名称</th><th>敌方承伤倍率</th><th>第一关限时</th><th>特殊说明</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>难 1</td><td>初入门径</td><td>100%（×1）</td><td>无限时</td><td>新手熟悉地图、测试英雄和装备配方首选</td></tr>
+            <tr><td>难 2</td><td>渐入佳境</td><td>50%（×1/2）</td><td>无限时</td><td>怪物属性强化，真伤同样受难度减伤倍率影响</td></tr>
+            <tr><td>难 3</td><td>别有天地</td><td>25%（×1/4）</td><td>60 分钟</td><td>开启第一关限时，击杀 1–3 号 Boss 各加时 2 分钟</td></tr>
+            <tr><td>难 4</td><td>炉火纯青</td><td>12.5%（×1/8）</td><td>60 分钟</td><td>Boss 有几率掉落顶尖神器部件</td></tr>
+            <tr><td>难 5</td><td>大雅之堂</td><td>6.25%（×1/16）</td><td>60 分钟</td><td>怪物强化，Boss 爆率为难 4 的 2 倍</td></tr>
+            <tr><td>难 6</td><td>登峰造极</td><td>3.125%（×1/32）</td><td>60 分钟</td><td>怪物攻速移速提升，高阶爆率进一步提高</td></tr>
+            <tr><td>难 7</td><td>神之巅峰</td><td>1.56%（×1/64）</td><td>60 分钟</td><td>Boss 生命较难 6 提升 50%，即使未击杀也会按时刷出下只 Boss</td></tr>
+            <tr><td>难 8</td><td>挑战极限</td><td>0.78%（×1/128）</td><td>60 分钟</td><td>敌方属性大幅提升，保留难 8 专属机制，通关奖励最高 80 积分</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="g-grid">
+        <div class="g-box">
+          <h4>急速模式（强烈推荐）</h4>
+          <p>所有难度（含难 8）选完难度后均可选择<strong>正常模式</strong>或<strong>急速模式</strong>。急速模式下，宝箱刷新周期由 <strong>7 秒减半为 3.5 秒</strong>，绿、蓝、紫箱每轮出现频率翻倍，大幅加快前期发育节奏。</p>
+        </div>
+        <div class="g-box">
+          <h4>单人 / 多人失败判定</h4>
+          <p><strong>单人局</strong>：英雄阵亡不会导致游戏失败，化作灵魂前往复活天使处免费复活，或在酒馆花费金币满状态买活。<br><strong>多人局</strong>：仅当所有在线玩家主英雄全部阵亡且 10 秒内无人复活才会判负；任意队友复活即刻取消判负。</p>
+        </div>
+        <div class="g-box">
+          <h4>关卡超时 10 秒宽限期</h4>
+          <p>第一至第三关限时归零后不会立刻退出，会进入 <strong>10 秒宽限期</strong>；期间击杀 Boss 获得加时或完成当前关卡目标，即可立刻取消判负继续战斗。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="sec-controls">
+      <h3>2. 核心操作、英雄通用技能与宝宝功能</h3>
+      <div class="g-grid">
+        <div class="g-box">
+          <h4><kbd>Tab</kbd> 实时英雄面板</h4>
+          <p>随时按 <kbd>Tab</kbd> 开关专属属性面板，实时查看三围、攻击、护甲、攻速、射程、物理/法术增伤与吸血等完整战斗数值。</p>
+        </div>
+        <div class="g-box">
+          <h4><kbd>D</kbd> 鼠标方向冲刺</h4>
+          <p>按 <kbd>D</kbd> 朝鼠标指向瞬间冲刺（最远 600 码，约 0.2 秒），仅耗 <strong>5 点魔法</strong>，适合躲避 Boss 范围技能与快速赶路。</p>
+        </div>
+        <div class="g-box">
+          <h4>第 1 格 · 恢复药水</h4>
+          <p>全英雄自带，<strong>25 秒冷却</strong>，5 秒内持续恢复施放时最大生命值的 <strong>50%</strong>（每秒 10%），前期站撸与高难续航核心。</p>
+        </div>
+        <div class="g-box">
+          <h4>第 2 格 · 全图友军传送</h4>
+          <p>全英雄自带，<strong>40 秒冷却、零耗蓝、全图范围</strong>，可选择任意存活友军英雄或友军建筑，仅传送自身，支援守家与打副本极快。</p>
+        </div>
+        <div class="g-box">
+          <h4>宝宝闪现与互传装备</h4>
+          <p>选中宝宝后<strong>右键远处地面可直接闪现</strong>；在英雄或宝宝背包中<strong>右键双击装备</strong>，可直接在英雄与宝宝之间互传物品。</p>
+        </div>
+        <div class="g-box">
+          <h4>宝宝全队符文</h4>
+          <p>让宝宝拾取地面掉落的<strong>力、恢复、御、速、蛮力</strong>五种符文时，效果会直接对<strong>全图友军英雄</strong>生效（巨龙符文仍召唤巨龙协战）。</p>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>全图找装备 &amp; 局内查配方：</strong>在聊天框直接输入装备全名（或 <code>-找装备 装备全名</code>），系统会将你的镜头自动定位到地面最近的一件该装备并打标，连续输入可轮换下一件；若地上没有，则自动只向你本人显示该装备的<strong>合成公式、掉落怪物与宝箱来源</strong>！
+      </div>
+    </section>
+
+    <section class="card" id="sec-heroes">
+      <h3>3. 30 位可选英雄与主塔成长机制</h3>
+      <p class="note">所有主英雄等级上限为 <strong>50 级</strong>，均支持主塔式技能成长。悬停技能图标即可查看实时动态伤害公式与冷却消耗。</p>
+      <div class="g-grid">
+        <div class="g-box">
+          <h4>力量系（11 位）</h4>
+          <div class="hero-tags">
+            <span class="hero-tag">魔幻</span><span class="hero-tag">天神</span><span class="hero-tag">狂狼</span><span class="hero-tag">将军</span>
+            <span class="hero-tag">人马</span><span class="hero-tag">战神</span><span class="hero-tag">先知</span><span class="hero-tag">神牛</span>
+            <span class="hero-tag">狂牛</span><span class="hero-tag">猛犸</span><span class="hero-tag">天将</span>
+          </div>
+        </div>
+        <div class="g-box">
+          <h4>敏捷系（9 位）</h4>
+          <div class="hero-tags">
+            <span class="hero-tag">剑圣</span><span class="hero-tag">箭灵</span><span class="hero-tag">幻影</span><span class="hero-tag">剑神</span>
+            <span class="hero-tag">枪神</span><span class="hero-tag">月之女神</span><span class="hero-tag">五行</span><span class="hero-tag">恶魔之子</span>
+            <span class="hero-tag">风行</span>
+          </div>
+        </div>
+        <div class="g-box">
+          <h4>智力系（10 位）</h4>
+          <div class="hero-tags">
+            <span class="hero-tag">寒冰</span><span class="hero-tag">电法</span><span class="hero-tag">风神</span><span class="hero-tag">邪冰</span>
+            <span class="hero-tag">鬼</span><span class="hero-tag">水魔</span><span class="hero-tag">火魂</span><span class="hero-tag">神幻</span>
+            <span class="hero-tag">大巫师</span><span class="hero-tag">冰龙</span>
+          </div>
+        </div>
+      </div>
+      <ul class="g-list">
+        <li><b>切换标记成长</b>：带有【切换技能】的主塔可以随时切换想重点升级的技能；大多数主塔在普攻时消耗 <strong>150 点魔法 + 当前技能等级 × 500 金币</strong> 自动提升被标记技能的等级。</li>
+        <li><b>特色成长英雄</b>：部分英雄采用独立成长机制（例如<strong>月之女神</strong>随英雄等级解锁最多 35 次天赋抽取，每次 1000 金币，可耗 50 蓝重置；<strong>恶魔之子</strong>通过地狱火、地狱刺与傲慢联动放大爆发），具体规则看技能说明即可上手。</li>
+        <li><b>装备词条折算规则</b>：本图英雄采用独立回蓝与属性面板机制，原图装备上的「最大魔法值 / 百分比回蓝」已统一转化为<strong>法术增伤</strong>，「攻击吸血」已统一转化为<strong>物理吸血</strong>，法系与物理出装收益一目了然。</li>
+      </ul>
+    </section>
+
+    <section class="card" id="sec-points">
+      <h3>4. 通关积分（KK 永久存档）与宝宝兑换</h3>
+      <ul class="g-list">
+        <li><b>如何获得永久积分</b>：在 KK 官方大厅房间中，完整通过四阶段流程且本局游戏时间满 <strong>30 分钟</strong>后通关，所有仍在线的玩家各获得 <strong>10 × 难度</strong> 点永久积分（难 1 得 10 分，难 8 最高得 80 分）。</li>
+        <li><b>本局额度不扣存档</b>：开局自动读取你的 KK 永久积分，<strong>右上角人口栏</strong>即显示本局可用积分；兑换成长只消耗本局额度，<strong>不会扣除永久存档总额</strong>，下局重新满额使用。</li>
+      </ul>
+      <div class="g-table-wrap">
+        <table class="g-table">
+          <thead>
+            <tr><th>宝宝格位</th><th>兑换路线</th><th>单级效果</th><th>初次消耗</th><th>涨价规则</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>第 1 格</td><td>主属性成长</td><td>每级额外 +2 主属性（补算已升等级）</td><td>50 分</td><td>独立涨价，每级 +35%（向上取整）</td></tr>
+            <tr><td>第 2 格</td><td>全三围成长</td><td>每级额外 +1 力量 / 敏捷 / 智力（补算已升等级）</td><td>50 分</td><td>独立涨价，每级 +35%（向上取整）</td></tr>
+            <tr><td>第 3 格</td><td>攻击成长</td><td>每级额外 +3 基础攻击力（补算已升等级）</td><td>50 分</td><td>独立涨价，每级 +35%（向上取整）</td></tr>
+            <tr><td>第 4 格</td><td>双增伤强化</td><td>物理增伤 +5%、法术增伤 +5%（立即生效）</td><td>100 分</td><td>独立涨价，每级 +35%（向上取整）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="sec-equip">
+      <h3>5. 装备养成机制与分阶段推荐路线</h3>
+      <p class="note">点击下方任意装备名称，即可直接跳转到「装备合成路线」查看完整逐层材料树、已核对属性与掉落怪物。</p>
+      <div class="g-grid">
+        <div class="g-box">
+          <h4>麦迪文材料复制</h4>
+          <p>把要复制的物品放在英雄<strong>第 1 格</strong>，在麦迪文处消耗 <strong>20 魔晶</strong>即可复制。<strong>全部合成材料均已开放复制</strong>，多人局一人出稀缺材料即可全队共享成型。</p>
+        </div>
+        <div class="g-box">
+          <h4>5 次送信 &amp; 减半刷新</h4>
+          <p>全队累计完成 <strong>5 次送信</strong>直接掉落 <a href="#I06W" class="itemlink itemchip" data-item="I06W">自然之力</a>；野外材料 Boss（巨兽/龙龟/蜥蜴龙 450 秒、九头蛇 600 秒）与副本 Boss（克尔苏加德 60 秒、男爵 90 秒、拉格纳罗斯 120 秒）刷新时间全部减半。</p>
+        </div>
+        <div class="g-box">
+          <h4>全装备可自由丢弃</h4>
+          <p>原图 169 件禁止丢弃的装备与翅膀拾取锁均已解除，刷到队友需要的装备或材料可以直接丢给队友，无需担心卡格子。</p>
+        </div>
+      </div>
+
+      <div class="stage-card">
+        <div class="stage-head"><h4>前期开荒（第一关）</h4><span class="stage-tag">宝箱 + 5 次送信 + 野外材料</span></div>
+        <p class="note">优先开宝箱凑光之四件套合翅膀、做满 5 次送信合出续航神器，同时按主属性补一把过渡武器：</p>
+        <p style="margin-top:8px">
+          <strong>通用翅膀 / 续航：</strong><a href="#I03I" class="itemlink itemchip" data-item="I03I">光之套装</a> <a href="#I00F" class="itemlink itemchip" data-item="I00F">魔力银瓶</a> <a href="#I00J" class="itemlink itemchip" data-item="I00J">腐蚀头盔</a> <a href="#I012" class="itemlink itemchip" data-item="I012">王者风范</a> → <a href="#I03B" class="itemlink itemchip" data-item="I03B">光之圣翼</a>；<a href="#I06W" class="itemlink itemchip" data-item="I06W">自然之力</a> + <a href="#I04N" class="itemlink itemchip" data-item="I04N">兽灵之王</a> + <a href="#I01Y" class="itemlink itemchip" data-item="I01Y">半神赛纳留斯的号角</a> → <a href="#I06V" class="itemlink itemchip" data-item="I06V">自然之灵</a><br>
+          <strong>前期输出过渡：</strong><a href="#I01S" class="itemlink itemchip" data-item="I01S">灵魂之刃</a> <a href="#I04F" class="itemlink itemchip" data-item="I04F">雷神之锤</a> <a href="#I03Q" class="itemlink itemchip" data-item="I03Q">法神之杖</a> <a href="#I047" class="itemlink itemchip" data-item="I047">契约宝典</a> <a href="#I053" class="itemlink itemchip" data-item="I053">混沌魔典</a> <a href="#I00P" class="itemlink itemchip" data-item="I00P">战神铠甲</a>
+        </p>
+      </div>
+
+      <div class="stage-card">
+        <div class="stage-head"><h4>中期成型（第二关 ~ 第三关）</h4><span class="stage-tag">副本 Boss + 五龙 + 材料复制</span></div>
+        <p class="note">第二关攻城间隙高效清副本（恐惧魔王、莫格莱尼、炎煌、五龙），结合麦迪文复制补齐核心神器：</p>
+        <p style="margin-top:8px">
+          <strong>防具与翅膀升级：</strong><a href="#I09K" class="itemlink itemchip" data-item="I09K">御天神铠</a> <a href="#I08Y" class="itemlink itemchip" data-item="I08Y">【翼】- 神之光</a> <a href="#I052" class="itemlink itemchip" data-item="I052">【翼】- 遮天冥光</a> <a href="#I086" class="itemlink itemchip" data-item="I086">幻神之武</a><br>
+          <strong>物理核心武器：</strong><a href="#I04O" class="itemlink itemchip" data-item="I04O">【神】- 轩辕剑</a> <a href="#I050" class="itemlink itemchip" data-item="I050">【魔】- 魔魂饮血</a> <a href="#I05J" class="itemlink itemchip" data-item="I05J">【魔】-九幽之怨</a> <a href="#I04X" class="itemlink itemchip" data-item="I04X">真*雷神之锤</a> <a href="#I06B" class="itemlink itemchip" data-item="I06B">火之高兴</a> → <a href="#I0BG" class="itemlink itemchip" data-item="I0BG">火之非常高兴</a>；<a href="#I039" class="itemlink itemchip" data-item="I039">霜之哀伤</a> → <a href="#I0BH" class="itemlink itemchip" data-item="I0BH">霜之特别哀伤</a>；<a href="#I05K" class="itemlink itemchip" data-item="I05K">灰烬使者</a><br>
+          <strong>法系核心武器：</strong><a href="#I06F" class="itemlink itemchip" data-item="I06F">瓦兰奈尔，远古王者之锤</a> <a href="#I05N" class="itemlink itemchip" data-item="I05N">巨龙之怒，泰蕾苟萨的寄魂杖</a> <a href="#I05V" class="itemlink itemchip" data-item="I05V">辛多雷,奥术洪流之杖</a>
+        </p>
+      </div>
+
+      <div class="stage-card">
+        <div class="stage-head"><h4>后期毕业 · 圣域神器（第三关 ~ 第四关）</h4><span class="stage-tag">终局攻坚</span></div>
+        <p style="margin-top:8px">
+          <strong>全队必做光环核：</strong><a href="#I07A" class="itemlink itemchip" data-item="I07A">巨龙之魂</a>（全属性 + 周围减甲 70 + 25% 增伤 + 100% 攻击光环）<br>
+          <strong>力量 / 综合毕业：</strong><a href="#I06P" class="itemlink itemchip" data-item="I06P">人皇剑</a> → <a href="#I0AG" class="itemlink itemchip" data-item="I0AG">圣 -  人皇剑</a>、<a href="#I09I" class="itemlink itemchip" data-item="I09I">定海神针</a>、<a href="#I063" class="itemlink itemchip" data-item="I063">萨弗拉斯，炎魔拉格纳罗斯之手</a><br>
+          <strong>敏捷输出毕业：</strong><a href="#I06U" class="itemlink itemchip" data-item="I06U">索利达尔,群星之怒</a> → <a href="#I0AH" class="itemlink itemchip" data-item="I0AH">圣 - 群星之怒</a>、<a href="#I065" class="itemlink itemchip" data-item="I065">逐风者的祝福之剑</a>、<a href="#I061" class="itemlink itemchip" data-item="I061">奎尔萨拉斯金弓</a><br>
+          <strong>智力法系毕业：</strong><a href="#I070" class="itemlink itemchip" data-item="I070">传说之杖</a> → <a href="#I0AI" class="itemlink itemchip" data-item="I0AI">圣 - 传说之杖</a>、<a href="#I09E" class="itemlink itemchip" data-item="I09E">奇甲天书</a>（免死无敌 3 秒回满 + 变羊 + 100% 法伤）
+        </p>
+      </div>
+    </section>
+
+    <section class="card" id="sec-stages">
+      <h3>6. 四阶段完整通关流程</h3>
+      <div class="stage-card">
+        <div class="stage-head"><h4>第一阶段 · 守城抗 Boss 与发育</h4><span class="stage-tag">难 3–8 限时 60 分钟</span></div>
+        <ul class="g-list">
+          <li>开局全图可见，房主选定难度与模式后立刻在酒馆选英雄；前期多用宝宝闪现捡宝箱、全队配合完成 <strong>5 次送信</strong>拿 <a href="#I06W" class="itemlink itemchip" data-item="I06W">自然之力</a>。</li>
+          <li>依次迎战 4 只进攻 Boss：<strong>恶魔守卫（1 号）→ 野灵魔熊（2 号）→ 苦难女王（3 号）→ 魔之阿尔赛斯（4 号）</strong>。难 3–8 下击杀前 3 只 Boss 各奖励 <strong>+2 分钟</strong>限时。</li>
+          <li>击杀 4 号 Boss 后暂停第一关计时，进入约 6 分钟的整备倒计时，抓紧刷副本、合装备、用麦迪文复制关键材料。</li>
+        </ul>
+      </div>
+
+      <div class="stage-card">
+        <div class="stage-head"><h4>第二阶段 · 攻破黑色城堡 &amp; 五龙/专属副本</h4><span class="stage-tag">限时 40 分钟</span></div>
+        <ul class="g-list">
+          <li>本关核心目标为攻破敌方<strong>黑色城堡</strong>；推城前可先清掉高价值副本 Boss：<strong>恐惧魔王</strong>（必掉 <a href="#I0BS" class="itemlink itemchip" data-item="I0BS">硬币（高级）</a>）、<strong>莫格莱尼</strong>（必掉 <a href="#I0BJ" class="itemlink itemchip" data-item="I0BJ">伯耆安纲-高极</a>）、<strong>炎煌</strong>（掉落圣域核心材料）。</li>
+          <li><strong>五龙副本</strong>：五条龙各击杀一次即可通关（取消延迟复活），全部奖励统一掉落在最后击杀的龙处，是 <a href="#I079" class="itemlink itemchip" data-item="I079">五龙王之翼</a> 与 <a href="#I07H" class="itemlink itemchip" data-item="I07H">混沌之精</a> 的核心产地。</li>
+          <li>攻破黑色城堡后停止本关倒计时，准备传送进入第三阶段。</li>
+        </ul>
+      </div>
+
+      <div class="stage-card">
+        <div class="stage-head"><h4>第三阶段 · 限时六连 Boss 攻坚</h4><span class="stage-tag">初始 10 分钟，每杀 +10 分钟</span></div>
+        <ul class="g-list">
+          <li>依次挑战 6 只强力 Boss：<strong>血精灵之王（卡尔 逐日者）→ 沙暴之王 → 3 号 Boss → 4 号 Boss → 伊利丹 怒风 → 霜之冰龙（萨皮洛恩）</strong>。</li>
+          <li>击杀前 5 只 Boss 每次都会把倒计时延长 <strong>+10 分钟</strong>；其中<strong>第 4 只 Boss 全难度固定掉落 1 件 <a href="#desc" class="itemlink itemchip" data-item="desc">灵魂之刃（副）</a></strong>，<strong>第 6 只霜之冰龙</strong>掉落 <a href="#I09F" class="itemlink itemchip" data-item="I09F">无字章</a>（合成 <a href="#I09E" class="itemlink itemchip" data-item="I09E">奇甲天书</a>）。</li>
+          <li>击败 6 号 Boss 后停表并激活第四关传送门。</li>
+        </ul>
+      </div>
+
+      <div class="stage-card">
+        <div class="stage-head"><h4>第四阶段 · 终局决战（阿尔萨斯 / 基尔加丹）</h4><span class="stage-tag">终局通关结算积分</span></div>
+        <ul class="g-list">
+          <li>全员备齐毕业圣域神器与团队光环（<a href="#I07A" class="itemlink itemchip" data-item="I07A">巨龙之魂</a>、<a href="#I06V" class="itemlink itemchip" data-item="I06V">自然之灵</a>、<a href="#I09E" class="itemlink itemchip" data-item="I09E">奇甲天书</a> 等），集火迎战终局 Boss 阿尔萨斯。</li>
+          <li>若满足隐藏终局条件，还将进一步挑战燃烧军团首领<strong>基尔加丹</strong>。最终通关且游戏时长满 30 分钟后，所有在线玩家自动结算 KK 永久积分。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="sec-commands">
+      <h3>7. 常用聊天指令速查</h3>
+      <div class="g-table-wrap">
+        <table class="g-table">
+          <thead>
+            <tr><th>指令</th><th>功能说明</th><th>指令</th><th>功能说明</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>装备全名</code> 或 <code>-找装备 装备名</code></td><td>定位地面最近同名装备；地上没有时显示合成公式与掉落来源</td><td><code>++</code></td><td>调整镜头拉高视距</td></tr>
+            <tr><td><code>-XS</code> / <code>-GB</code></td><td>开启 / 关闭伤害数值显示</td><td><code>-zs</code></td><td>英雄卡地形时自杀脱困</td></tr>
+            <tr><td><code>-open</code> / <code>-off</code></td><td>开启 / 关闭新手提示</td><td><code>-q</code></td><td>清除地图地面全部装备（防卡顿）</td></tr>
+            <tr><td><code>-fx</code> / <code>-float</code></td><td>开关技能命中特效 / 伤害跳字</td><td><code>-qcfw</code></td><td>清除地图地面全部符文</td></tr>
+            <tr><td><code>-attr</code></td><td>聊天栏查看当前主英雄底层属性</td><td><kbd>Tab</kbd> / <kbd>D</kbd></td><td>面板开关 / 鼠标方向 5 蓝冲刺</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="view-equip" class="shell hidden">
   <aside class="sidebar" aria-label="装备索引">
     <div class="filterbar">
       <label class="searchlabel" for="search">搜索装备</label>
@@ -251,18 +560,71 @@ search.addEventListener('keydown',e=>{
   }
 });
 gradeSelect.addEventListener('change',()=>{renderIndex();index.scrollTop=0;});
-document.addEventListener('click',e=>{
+const viewGuide = document.getElementById('view-guide');
+const viewEquip = document.getElementById('view-equip');
+const viewButtons = [...document.querySelectorAll('[data-view]')];
+const pageHeading = document.getElementById('page-heading');
+const pageSub = document.getElementById('page-sub');
+let currentView = 'guide';
+function setView(view, push = false) {
+  currentView = view === 'equip' ? 'equip' : 'guide';
+  viewGuide.classList.toggle('hidden', currentView !== 'guide');
+  viewEquip.classList.toggle('hidden', currentView !== 'equip');
+  for (const b of viewButtons) b.setAttribute('aria-selected', String(b.dataset.view === currentView));
+  if (currentView === 'guide') {
+    pageHeading.textContent = '玩法攻略与装备路线';
+    pageSub.textContent = '查看核心功能、四阶段流程与出装推荐，点击任意装备直达完整合成树。';
+    if (push && location.hash !== '#guide') history.pushState(null, '', '#guide');
+  } else {
+    pageHeading.textContent = '装备合成路线';
+    pageSub.textContent = '按装备名、材料名或物品 ID 查找。展开材料可继续查看下一层配方。';
+    if (!selected) selectItem('I01S', false, false);
+    if (push && location.hash !== '#' + selected) history.pushState(null, '', '#' + selected);
+  }
+}
+for (const b of viewButtons) b.addEventListener('click', () => {
+  setView(b.dataset.view, true);
+  window.scrollTo({ top: 0, behavior: 'auto' });
+});
+document.addEventListener('click', e => {
+  const sw = e.target.closest('[data-switch-view]');
+  if (sw) {
+    setView(sw.dataset.switchView, true);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    return;
+  }
   const link = e.target.closest('[data-item]');
   if (!link || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
   e.preventDefault();
-  selectItem(link.dataset.item,true,link.tagName==='A' || window.innerWidth<=850);
+  const id = link.dataset.item;
+  if (currentView !== 'equip') setView('equip', false);
+  selectItem(id, true, false);
+  if (link.classList.contains('itemchip')) window.scrollTo({ top: 0, behavior: 'auto' });
+  else if (link.tagName === 'A' || window.innerWidth <= 850) detail.scrollIntoView({ block: 'start', behavior: 'auto' });
 });
 const fromHash = () => {
   try { return decodeURIComponent(location.hash.slice(1)); } catch { return ''; }
 };
-window.addEventListener('popstate',()=>selectItem(fromHash()||'I01S',false));
-window.addEventListener('hashchange',()=>selectItem(fromHash()||'I01S',false));
-selectItem(Object.hasOwn(items,fromHash())?fromHash():'I01S',false);
+function syncRoute() {
+  const h = fromHash();
+  if (h && Object.hasOwn(items, h)) {
+    setView('equip', false);
+    selectItem(h, false, false);
+  } else if (h === 'equip') {
+    setView('equip', false);
+    if (!selected) selectItem('I01S', false, false);
+  } else {
+    setView('guide', false);
+    if (h && h.startsWith('sec-')) {
+      const sec = document.getElementById(h);
+      if (sec) sec.scrollIntoView({ block: 'start', behavior: 'auto' });
+    }
+  }
+}
+window.addEventListener('popstate', syncRoute);
+window.addEventListener('hashchange', syncRoute);
+selectItem('I01S', false, false);
+syncRoute();
 </script>
 </body>
 </html>
